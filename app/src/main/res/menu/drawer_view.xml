@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemCompany"
+        android:icon="@drawable/ic_baseline_event_note_24"
+        android:title="@string/company" />
+    <item
+        android:id="@+id/itemSetting"
+        android:icon="@drawable/ic_baseline_tune_24"
+        android:title="@string/setting" />
+
+    <item
+        android:id="@+id/itemProfile"
+        android:icon="@drawable/ic_baseline_person_outline_24"
+        android:title="@string/profile" />
+    <item
+        android:id="@+id/itemNotifycation"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="@string/notifycation" />
+    <item
+        android:id="@+id/itemGuide"
+        android:icon="@drawable/ic_baseline_model_training_24"
+        android:title="@string/guide_faq" />
+    <item
+        android:id="@+id/itemVersion"
+        android:icon="@drawable/ic_baseline_system_update_24"
+        android:title="@string/version" />
+</menu>

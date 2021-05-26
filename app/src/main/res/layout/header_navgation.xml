@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/purple_200"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:background="@drawable/border_image"
+        app:srcCompat="@drawable/ic_baseline_account_circle_24"
+        tools:srcCompat="@drawable/ic_baseline_account_circle_24" />
+    <TextView
+        android:id="@+id/userName"
+        android:textSize="24dp"
+        android:gravity="center"
+        android:text="@string/album_maker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/email"
+        android:gravity="center"
+        android:text="thucdvph09264@gmail.com"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
