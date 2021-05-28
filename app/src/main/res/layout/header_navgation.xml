@@ -4,28 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/purple_200"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="left"
         android:background="@drawable/border_image"
         app:srcCompat="@drawable/ic_baseline_account_circle_24"
         tools:srcCompat="@drawable/ic_baseline_account_circle_24" />
+
     <TextView
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/black"
         android:id="@+id/userName"
-        android:textSize="24dp"
-        android:gravity="center"
-        android:text="@string/album_maker"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="@string/album_maker"
+        android:textSize="18dp" />
+
     <TextView
+        android:layout_marginLeft="16dp"
         android:id="@+id/email"
-        android:gravity="center"
+        android:gravity="left"
         android:text="thucdvph09264@gmail.com"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <View
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/black"/>
 </LinearLayout>
