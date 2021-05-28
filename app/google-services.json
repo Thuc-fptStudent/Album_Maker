@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "266685351625",
+    "project_id": "album-maker-a6973",
+    "storage_bucket": "album-maker-a6973.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266685351625:android:0d7e2603514496f9cfaf18",
+        "android_client_info": {
+          "package_name": "com.example.demo_scsoft"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266685351625-vf463dn029f2iitpud0jf938sk38nc72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmfl1Af5omhwOB1c8I4c9C1f9uPnXagF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266685351625-vf463dn029f2iitpud0jf938sk38nc72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

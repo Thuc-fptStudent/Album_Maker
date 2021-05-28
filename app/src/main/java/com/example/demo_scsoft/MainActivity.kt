@@ -3,6 +3,7 @@ package com.example.demo_scsoft
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
@@ -21,6 +22,7 @@ import com.example.demo_scsoft.adapter.AlbumAdapter
 import com.example.demo_scsoft.callback.ItemClick
 import com.example.demo_scsoft.fragment.*
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var drawerLayout: DrawerLayout
