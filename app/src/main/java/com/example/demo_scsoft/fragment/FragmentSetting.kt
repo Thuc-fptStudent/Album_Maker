@@ -3,13 +3,14 @@ package com.example.demo_scsoft.fragment
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.demo_scsoft.MainActivity
 import com.example.demo_scsoft.R
 
@@ -61,7 +62,7 @@ class FragmentSetting : Fragment() {
     fun tollBar(view: View){
         toolbar = view.findViewById(R.id.toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_west_24)
-        toolbar.setNavigationOnClickListener { v: View? -> startActivity(Intent(context,MainActivity::class.java)) }
+        toolbar.setNavigationOnClickListener {startActivity(Intent(context, MainActivity::class.java)) }
 
     }
 }

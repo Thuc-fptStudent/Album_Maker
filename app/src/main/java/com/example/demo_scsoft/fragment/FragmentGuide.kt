@@ -22,7 +22,8 @@ class FragmentGuide : Fragment() {
         toolbar = view.findViewById(R.id.toolbar)
         recyclerView = view.findViewById(R.id.recyclerView)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_west_24)
-        toolbar.setNavigationOnClickListener { startActivity(Intent(context, MainActivity::class.java)) }
+        toolbar.setNavigationOnClickListener { startActivity(Intent(context, MainActivity::class.java))
+            fragmentManager?.beginTransaction()?.remove(FragmentDetailAlbum())?.commitAllowingStateLoss();}
         testView()
         return view
     }

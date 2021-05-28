@@ -26,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
         btnLogin = findViewById(R.id.button)
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
-        checkPermistion()
         btnLogin.setOnClickListener {
             val request = RetrofitClient.buildService(ApiService::class.java)
             val call = request.login(
@@ -36,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
                 1,
                 ""
             )
-
             call.enqueue(object : retrofit2.Callback<UserRespon> {
                 override fun onResponse(call: Call<UserRespon>, response: Response<UserRespon>) {
                     //code
@@ -47,32 +45,6 @@ class LoginActivity : AppCompatActivity() {
                 }
 
             })
-        }
-    }
-
-    fun checkPermistion() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.INTERNET
-                ) == PackageManager.PERMISSION_DENIED
-            ) {
-                requestPermissions(arrayOf(Manifest.permission.INTERNET), 9999)
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 9999) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            } else {
-                Toast.makeText(this, "Không thể kết nối internet", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 }
