@@ -7,18 +7,16 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.Window
-import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.*
-import androidx.appcompat.app.ActionBar
+import android.widget.LinearLayout.HORIZONTAL
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demo_scsoft.adapter.AlbumAdapter
@@ -42,6 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var animation: Animation
     lateinit var albumAdapter: AlbumAdapter
     lateinit var recyclerViewHistorySearch: RecyclerView
+    lateinit var searchHistoryAdapter: SearchHistoryAdapter
     var list = arrayListOf<String>(
         "sdajf",
         "ádfa",
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     @SuppressLint("WrongConstant")
     fun testList() {
         var albumAdapter = AlbumAdapter(list, object : ItemClick {
-            override fun setOnItemClick(view: View, position: Int) {
+            override fun setOnItemClick(view: View, position: Int, s: String) {
                 setCurrentFragment(FragmentDetailAlbum())
             }
         })
@@ -109,34 +108,62 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         tvHistory.setVisibility(View.GONE)
     }
 
-    @SuppressLint("WrongConstant")
     fun onclick() {
         openDrawerNavigation.setOnClickListener { drawerLayout.openDrawer(navigationView) }
         navigationView.setNavigationItemSelectedListener { item -> onNavigationItemSelected(item) }
         //search
         search.setOnClickListener {
-            openDrawerNavigation.setVisibility(View.INVISIBLE)
-            linearLayoutSeach.setVisibility(View.VISIBLE)
-            view.setVisibility(View.GONE)
-//            var list = DAO(applicationContext).getAll()
-//            recyclerViewHistorySearch.layoutManager = LinearLayoutManager(applicationContext, DividerItemDecoration.HORIZONTAL, true)
-//            recyclerView.adapter = SearchHistoryAdapter(list)
+            openSearch()
         }
         close.setOnClickListener {
             openDrawerNavigation.setVisibility(View.VISIBLE)
             linearLayoutSeach.setVisibility(View.GONE)
             view.setVisibility(View.VISIBLE)
+            testList()
         }
         editSearch.addTextChangedListener { it -> search(it.toString()) }
+    }
+
+    @SuppressLint("WrongConstant")
+    fun openSearch(){
+        openDrawerNavigation.setVisibility(View.INVISIBLE)
+        linearLayoutSeach.setVisibility(View.VISIBLE)
+        view.setVisibility(View.GONE)
+        var list: MutableList<String> = DAO(applicationContext).getAll() as MutableList<String>
+        Log.e("Size List: ", "" + list.size)
+        if (list.size > 0) {
+            tvHistory.setVisibility(View.VISIBLE)
+            recyclerViewHistorySearch.layoutManager =
+                LinearLayoutManager(applicationContext, HORIZONTAL, false)
+            searchHistoryAdapter = SearchHistoryAdapter(list, object : ItemClick {
+                override fun setOnItemClick(view: View, position: Int, s: String) {
+                    if (s.equals("itemView")) {
+                        editSearch.setText(list.get(position))
+                    }
+                    if (s.equals("delete")){
+                        var dao : DAO = DAO(applicationContext)
+                        dao.delete(list.get(position))
+                        openSearch()
+                    }
+                }
+            })
+            recyclerViewHistorySearch.adapter = searchHistoryAdapter
+        }
     }
 
     @SuppressLint("WrongConstant")
     fun search(s: String) {
         var listSearch = list.filter { it.contains(s, ignoreCase = true) }
         albumAdapter = AlbumAdapter(listSearch, object : ItemClick {
-            override fun setOnItemClick(view: View, position: Int) {
+            override fun setOnItemClick(view: View, position: Int, s: String) {
                 setCurrentFragment(FragmentDetailAlbum())
-                DAO(applicationContext).addString(editSearch.text.toString())
+                var dao = DAO(applicationContext)
+                var result: Int = dao.addString(editSearch.text.toString())
+                if (result == 1) {
+                    Log.e("INSERT", "OK")
+                } else {
+                    Log.e("INSERT", "NOT")
+                }
             }
         })
         recyclerView.layoutManager = LinearLayoutManager(applicationContext, 1, false)

@@ -33,7 +33,7 @@ class AlbumAdapter(var list: List<String>,var itemClick : ItemClick) : RecyclerV
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.idCharg.setText(list.get(position))
         holder.itemCardView.setOnClickListener { v->
-            itemClick.setOnItemClick(v, position)
+            itemClick.setOnItemClick(v, position,"")
         }
     }
 

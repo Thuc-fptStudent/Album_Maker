@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteDatabase
 class DAO(context: Context) {
     var sql = SQLiteDB(context)
     lateinit var db: SQLiteDatabase
-    fun addString(string: String): Long {
+    fun addString(string: String): Int {
         db = sql.writableDatabase
-        var values : ContentValues = ContentValues()
+        var values: ContentValues = ContentValues()
         values.put("STRING", string)
-        var result : Long = db.insert("SEARCHHISTORY", null, values)
+        var result: Long = db.insert("SEARCHHISTORY", null, values)
         db.close()
         if (result > 0) {
             return 1
@@ -21,14 +21,21 @@ class DAO(context: Context) {
     }
 
     fun getAll(): List<String> {
-        var list = mutableListOf<String>()
-        db = sql.readableDatabase
+        var list: MutableList<String> = ArrayList()
+        db = sql.writableDatabase
         var cursor: Cursor = db.rawQuery("SELECT * FROM SEARCHHISTORY", null)
         cursor.moveToFirst()
-        while (cursor.isAfterLast) {
-            list.add(cursor.getString(1))
+        while (!cursor.isAfterLast) {
+            var s: String = cursor.getString(0)
+            list.add(s)
             cursor.moveToNext()
         }
+        db.close()
         return list
+    }
+
+    fun delete(string: String){
+        db = sql.writableDatabase
+        db.delete("SEARCHHISTORY","STRING=?", arrayOf(string))
     }
 }
