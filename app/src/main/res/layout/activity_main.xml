@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
                 android:textSize="24dp" />
 
             <ImageButton
+                android:id="@+id/reLoad"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
@@ -52,6 +54,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
                 android:background="@drawable/ic_baseline_search_24" />
+
         </LinearLayout>
 
         <RelativeLayout
@@ -113,6 +116,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/view2" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/view2"
+                android:layout_gravity="center" />
+
         </RelativeLayout>
     </FrameLayout>
 

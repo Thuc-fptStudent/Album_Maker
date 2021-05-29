@@ -1,6 +1,7 @@
 package com.example.demo_scsoft
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -41,6 +42,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var albumAdapter: AlbumAdapter
     lateinit var recyclerViewHistorySearch: RecyclerView
     lateinit var searchHistoryAdapter: SearchHistoryAdapter
+    lateinit var progressDialog: ProgressDialog
+    lateinit var processBar: ProgressBar
     var list = arrayListOf<String>(
         "sdajf",
         "ádfa",
@@ -81,12 +84,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recyclerView.layoutManager = LinearLayoutManager(applicationContext, 1, false)
         recyclerView.adapter = albumAdapter
         //load data
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
 
-            }
-        })
     }
 
     fun initView() {
@@ -99,6 +97,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recyclerView = findViewById(R.id.recyclerViewHome)
         search = findViewById(R.id.seach)
         close = findViewById(R.id.idClose)
+        reLoad = findViewById(R.id.reLoad)
+        processBar = findViewById(R.id.progressBar)
         recyclerViewHistorySearch = findViewById(R.id.recyclerViewHistorySearch)
         editSearch = findViewById(R.id.editSearch)
         linearLayoutSeach = findViewById(R.id.line1)
@@ -106,22 +106,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         linearLayoutSeach.setVisibility(View.GONE)
         view = findViewById(R.id.view)
         tvHistory.setVisibility(View.GONE)
+        processBar.visibility = View.GONE
     }
 
     fun onclick() {
         openDrawerNavigation.setOnClickListener { drawerLayout.openDrawer(navigationView) }
         navigationView.setNavigationItemSelectedListener { item -> onNavigationItemSelected(item) }
-        //search
-        search.setOnClickListener {
-            openSearch()
-        }
+        //open search
+        search.setOnClickListener { openSearch() }
+        //close search
         close.setOnClickListener {
             openDrawerNavigation.setVisibility(View.VISIBLE)
             linearLayoutSeach.setVisibility(View.GONE)
             view.setVisibility(View.VISIBLE)
             testList()
         }
+        // search
         editSearch.addTextChangedListener { it -> search(it.toString()) }
+        //reload
+        reLoad.setOnClickListener { reLoad() }
+    }
+
+    fun reLoad() {
+        processBar.visibility = View.VISIBLE
+        Handler().postDelayed({ processBar.visibility = View.GONE }, 2000)
     }
 
     @SuppressLint("WrongConstant")
