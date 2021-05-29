@@ -125,28 +125,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     @SuppressLint("WrongConstant")
-    fun openSearch(){
+    fun openSearch() {
         openDrawerNavigation.setVisibility(View.INVISIBLE)
         linearLayoutSeach.setVisibility(View.VISIBLE)
         view.setVisibility(View.GONE)
         var list: MutableList<String> = DAO(applicationContext).getAll() as MutableList<String>
         Log.e("Size List: ", "" + list.size)
+
         if (list.size > 0) {
             tvHistory.setVisibility(View.VISIBLE)
-            recyclerViewHistorySearch.layoutManager =
-                LinearLayoutManager(applicationContext, HORIZONTAL, false)
             searchHistoryAdapter = SearchHistoryAdapter(list, object : ItemClick {
                 override fun setOnItemClick(view: View, position: Int, s: String) {
                     if (s.equals("itemView")) {
                         editSearch.setText(list.get(position))
                     }
-                    if (s.equals("delete")){
-                        var dao : DAO = DAO(applicationContext)
+                    if (s.equals("delete")) {
+                        var dao: DAO = DAO(applicationContext)
                         dao.delete(list.get(position))
                         openSearch()
                     }
                 }
             })
+            recyclerViewHistorySearch.layoutManager =
+                LinearLayoutManager(applicationContext, HORIZONTAL, false)
             recyclerViewHistorySearch.adapter = searchHistoryAdapter
         }
     }

@@ -16,7 +16,7 @@
         <TextView
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="24dp"
+            android:textSize="18dp"
             android:text="@string/setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -36,7 +36,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:textSize="24dp"
+                android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -45,7 +45,7 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:textSize="24dp"
+                android:textSize="18dp"
                 android:id="@+id/idSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:textSize="24dp"
+                android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -81,7 +81,7 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:textSize="24dp"
+                android:textSize="18dp"
                 android:id="@+id/idLanguage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             <Switch
                 android:id="@+id/switch1"
                 android:textColor="@color/black"
-                android:textSize="24dp"
+                android:textSize="18dp"
                 android:text="@string/comment_with_voice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -127,7 +127,7 @@
             <Switch
                 android:id="@+id/switch2"
                 android:textColor="@color/black"
-                android:textSize="24dp"
+                android:textSize="18dp"
                 android:text="@string/login_with_fingerprint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -149,7 +149,7 @@
         <Button
             android:textColor="@color/white"
             android:backgroundTint="@color/purple_700"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:text="@string/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
