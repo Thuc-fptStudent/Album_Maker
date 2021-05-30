@@ -1,7 +1,6 @@
 package com.example.demo_scsoft
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -22,7 +21,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demo_scsoft.adapter.AlbumAdapter
 import com.example.demo_scsoft.adapter.SearchHistoryAdapter
-import com.example.demo_scsoft.callback.ComBack
 import com.example.demo_scsoft.callback.ItemClick
 import com.example.demo_scsoft.fragment.*
 import com.example.demo_scsoft.sqlite.DAO
@@ -43,7 +41,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var albumAdapter: AlbumAdapter
     lateinit var recyclerViewHistorySearch: RecyclerView
     lateinit var searchHistoryAdapter: SearchHistoryAdapter
-    lateinit var progressDialog: ProgressDialog
     lateinit var processBar: ProgressBar
     var list = arrayListOf<String>(
         "sdajf",
@@ -73,6 +70,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initView()
         testList()
         onclick()
+        setCurrentFragment(AlbumFragment())
     }
 
     @SuppressLint("WrongConstant")

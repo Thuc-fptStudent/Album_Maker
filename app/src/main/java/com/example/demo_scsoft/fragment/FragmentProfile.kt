@@ -15,11 +15,15 @@ class FragmentProfile : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?
+    ): View? {
         var view = inflater.inflate(R.layout.fragment_profile, container, false)
         toolbar = view.findViewById(R.id.toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_west_24)
-        toolbar.setNavigationOnClickListener { startActivity(Intent(context, MainActivity::class.java)) }
+        toolbar.setNavigationOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.content, AlbumFragment())
+                ?.disallowAddToBackStack()?.commit()
+        }
         return view
     }
 }

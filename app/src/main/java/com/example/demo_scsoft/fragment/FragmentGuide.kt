@@ -17,19 +17,33 @@ import com.example.demo_scsoft.adapter.GuideAdapter
 class FragmentGuide : Fragment() {
     lateinit var toolbar: Toolbar
     lateinit var recyclerView: RecyclerView
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         var view = inflater.inflate(R.layout.fragment_guide, container, false)
         toolbar = view.findViewById(R.id.toolbar)
         recyclerView = view.findViewById(R.id.recyclerView)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_west_24)
-        toolbar.setNavigationOnClickListener { startActivity(Intent(context, MainActivity::class.java))
-            fragmentManager?.beginTransaction()?.remove(FragmentDetailAlbum())?.commitAllowingStateLoss();}
+        toolbar.setNavigationOnClickListener {
+            startActivity(Intent(context, MainActivity::class.java))
+            fragmentManager?.beginTransaction()?.replace(R.id.content, AlbumFragment())
+                ?.disallowAddToBackStack()?.commit()
+        }
         testView()
         return view
     }
+
     @SuppressLint("WrongConstant")
-    fun testView(){
-        var list = arrayListOf<String>("Guideline test 1", "Guideline test 2", "Guideline test 3", "Guideline test 4", "Guideline test 5")
+    fun testView() {
+        var list = arrayListOf<String>(
+            "Guideline test 1",
+            "Guideline test 2",
+            "Guideline test 3",
+            "Guideline test 4",
+            "Guideline test 5"
+        )
         recyclerView.layoutManager = LinearLayoutManager(context, 1, false)
         recyclerView.adapter = GuideAdapter(list)
     }

@@ -18,13 +18,17 @@ import com.example.demo_scsoft.R
 
 class FragmentDetailAlbum : Fragment() {
     lateinit var toolbar: Toolbar
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view =  inflater.inflate(R.layout.fragment_detail_album, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        var view = inflater.inflate(R.layout.fragment_detail_album, container, false)
         toolbar = view.findViewById(R.id.toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_west_24)
         toolbar.setNavigationOnClickListener {
-            startActivity(Intent(context, MainActivity::class.java))
-           fragmentManager?.beginTransaction()?.remove(FragmentDetailAlbum())?.commitAllowingStateLoss();
+            fragmentManager?.beginTransaction()?.replace(R.id.content, AlbumFragment())
+                ?.disallowAddToBackStack()?.commit()
         }
         return view
     }

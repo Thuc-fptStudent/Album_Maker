@@ -32,12 +32,8 @@ class FragmentNotification : Fragment() {
         imageView = view.findViewById(R.id.imageView)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_west_24)
         toolbar.setNavigationOnClickListener {
-            startActivity(
-                Intent(
-                    context,
-                    MainActivity::class.java
-                )
-            )
+            fragmentManager?.beginTransaction()?.replace(R.id.content, AlbumFragment())
+                ?.disallowAddToBackStack()?.commit()
         }
         testList()
         onclick()
