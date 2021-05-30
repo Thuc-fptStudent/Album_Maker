@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demo_scsoft.adapter.AlbumAdapter
 import com.example.demo_scsoft.adapter.SearchHistoryAdapter
+import com.example.demo_scsoft.callback.ComBack
 import com.example.demo_scsoft.callback.ItemClick
 import com.example.demo_scsoft.fragment.*
 import com.example.demo_scsoft.sqlite.DAO
@@ -179,7 +180,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recyclerView.adapter = albumAdapter
     }
 
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.itemCompany -> {
@@ -211,17 +211,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun setCurrentFragment(fragment: Fragment) {
-        fragmentManager.beginTransaction().replace(R.id.content, fragment).addToBackStack(null)
+        fragmentManager.beginTransaction().replace(R.id.content, fragment).disallowAddToBackStack()
             .commit()
     }
 
     override fun onBackPressed() {
-        if (fragmentManager != null) {
-            fragmentManager.isDestroyed
-        }
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else if (exit) {
+        if (exit) {
             super.onBackPressed()
         } else {
             exit = true
@@ -229,6 +224,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         Handler().postDelayed({ exit = false }, 1500)
     }
-
 }
 
