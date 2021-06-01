@@ -82,7 +82,7 @@
 
             <TextView
                 android:textSize="18dp"
-                android:id="@+id/idLanguage"
+                android:id="@+id/tvLanguage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -140,6 +140,7 @@
             android:background="@color/black" />
 
         <Button
+            android:id="@+id/idSaveChanged"
             android:textColor="@color/white"
             android:backgroundTint="#707070"
             android:layout_marginTop="32dp"
@@ -147,6 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <Button
+            android:id="@+id/logOut"
             android:textColor="@color/white"
             android:backgroundTint="@color/purple_700"
             android:layout_marginTop="24dp"

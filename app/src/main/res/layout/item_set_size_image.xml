@@ -12,21 +12,28 @@
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold" />
-
+<RadioGroup
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <RadioButton
+        android:id="@+id/id1mb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="1 MB" />
     <RadioButton
+        android:id="@+id/id2mb"
         android:text="2 MB"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <RadioButton
+        android:id="@+id/id3mb"
         android:text="3 MB"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+</RadioGroup>
+
 
 </LinearLayout>

@@ -5,10 +5,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
+    var token : String = ""
     private val client = OkHttpClient.Builder().build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://supenient.vn:1018/api/")
+        .baseUrl("http://supenient.vn:1018/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()

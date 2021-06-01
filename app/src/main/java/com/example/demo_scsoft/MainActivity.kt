@@ -1,8 +1,15 @@
 package com.example.demo_scsoft
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import android.os.Handler
+import android.provider.ContactsContract
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -21,10 +28,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demo_scsoft.adapter.AlbumAdapter
 import com.example.demo_scsoft.adapter.SearchHistoryAdapter
+import com.example.demo_scsoft.api.ApiService
+import com.example.demo_scsoft.api.RetrofitClient
+import com.example.demo_scsoft.callback.Click
 import com.example.demo_scsoft.callback.ItemClick
 import com.example.demo_scsoft.fragment.*
+import com.example.demo_scsoft.model.LoginResponse
+import com.example.demo_scsoft.model_getlist.*
 import com.example.demo_scsoft.sqlite.DAO
 import com.google.android.material.navigation.NavigationView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var drawerLayout: DrawerLayout
@@ -42,39 +60,75 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var recyclerViewHistorySearch: RecyclerView
     lateinit var searchHistoryAdapter: SearchHistoryAdapter
     lateinit var processBar: ProgressBar
-    var list = arrayListOf<String>(
-        "sdajf",
-        "ádfa",
-        "adsfasdf",
-        "ádfa",
-        "adsfasdf",
-        "ádfa",
-        "adsfasdf",
-        "ádfa",
-        "Dam van thuc",
-        "ádfa",
-        "adsfasdf",
-        "ádfa",
-        "adsfasdf",
-        "ádfa",
-        "adsfasdf",
-        "ádfa",
-        "adsfasdf"
-    )
+    lateinit var preferences: SharedPreferences
+    var listData__1: List<Data__1> = arrayListOf()
+    var listAlbumInformation: List<AlbumInformation> = arrayListOf()
+    var listAlbumType: MutableList<AlbumType> = mutableListOf()
     open var fragmentManager: FragmentManager = supportFragmentManager
     lateinit var recyclerView: RecyclerView
     var exit: Boolean = false
+    lateinit var data: Data
+    lateinit var example: Example
+    lateinit var data1: Data__1
+    lateinit var albumInformations: AlbumInformation
+    lateinit var albumType: AlbumType
+    var list = arrayListOf(
+        "àdsafa",
+        "ádgasdg",
+        "lidhiihi",
+        "sdadjfgadsjop",
+        "ddjf adf",
+        "ĐÂM",
+        "jdaskfj"
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
-        testList()
         onclick()
         setCurrentFragment(AlbumFragment())
+        setLocale()
+        getAlbum()
+        testList(
+            list
+        )
+
+        Log.e("TOKEN", "" + RetrofitClient.token.toString())
+    }
+
+    fun getAlbum() {
+        RetrofitClient.buildService(ApiService::class.java).getAlbum()
+            .enqueue(object :
+                Callback<Example> {
+                override fun onResponse(call: Call<Example>, response: Response<Example>) {
+                    if (response.isSuccessful) {
+                        example = response.body()!!
+                        data = example.data
+                        listData__1 = data.dataList
+                    }
+                    Log.e("RESPONSE", "" + response.message())
+                }
+
+                override fun onFailure(call: Call<Example>, t: Throwable) {
+                    Log.e("ERR", "" + t.message)
+                }
+
+            })
+    }
+
+    fun setLocale() {
+        preferences = this.getSharedPreferences(FragmentSetting(object : Click {
+            override fun onClick(string: String) {
+            }
+        }).NAME_SETTING, Context.MODE_PRIVATE)
+        var lang = preferences.getString("Language", "vn").toString()
+
+        Toast.makeText(applicationContext, "" + lang, Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("WrongConstant")
-    fun testList() {
+    fun testList(list: List<String>) {
         var albumAdapter = AlbumAdapter(list, object : ItemClick {
             override fun setOnItemClick(view: View, position: Int, s: String) {
                 setCurrentFragment(FragmentDetailAlbum())
@@ -118,7 +172,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             openDrawerNavigation.setVisibility(View.VISIBLE)
             linearLayoutSeach.setVisibility(View.GONE)
             view.setVisibility(View.VISIBLE)
-            testList()
+            testList(list)
         }
         // search
         editSearch.addTextChangedListener { it -> search(it.toString()) }
@@ -185,7 +239,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.itemSetting -> {
-                setCurrentFragment(FragmentSetting())
+                setCurrentFragment(FragmentSetting(object : Click {
+                    override fun onClick(string: String) {
+                        startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                        finish()
+                    }
+                }))
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.itemProfile -> {
